@@ -66,6 +66,7 @@
         audioRecorder = audioContext.createScriptProcessor(4096, 1, 1);
         audioRecorder.onaudioprocess = (buffer) => {
             const audioBuffer = new Float32Array(buffer.inputBuffer.getChannelData(0));
+            console.log(audioBuffer);
             chunks.push(audioBuffer);
         }        
         
@@ -85,7 +86,7 @@
         });
 
         let fileBuffer = concatArrayBuffer(chunks);
-        console.log(fileBuffer);
+
         let blob = new Blob(
                             chunks,
                             {type: "audio/pcm"}
