@@ -61,7 +61,12 @@
         });
 
         stream = await navigator.mediaDevices.getUserMedia(constraints);
-        audioContext = new AudioContext();
+        if (AudioContext) {
+            audioContext = new AudioContext();
+        } else if (webkitAudioContext) {
+            audioContext = new webkitAudioContext();
+        }
+        
         audioSource = audioContext.createMediaStreamSource(stream);
         audioRecorder = audioContext.createScriptProcessor(4096, 1, 1);
         audioRecorder.onaudioprocess = (buffer) => {
