@@ -43,7 +43,7 @@
 
     initialize();
 
-    let audioContext;
+    let currentAudioContext;
     let audioSource;
     let audioRecorder;
 
@@ -61,14 +61,14 @@
         });
 
         stream = await navigator.mediaDevices.getUserMedia(constraints);
-        if (AudioContext) {
-            audioContext = new AudioContext();
-        } else if (webkitAudioContext) {
-            audioContext = new webkitAudioContext();
+        if (window.AudioContext) {
+            currentAudioContext = new AudioContext();
+        } else if (window.webkitAudioContext) {
+            currentAudioContext = new webkitAudioContext();
         }
         
-        audioSource = audioContext.createMediaStreamSource(stream);
-        audioRecorder = audioContext.createScriptProcessor(4096, 1, 1);
+        audioSource = currentAudioContext.createMediaStreamSource(stream);
+        audioRecorder = currentAudioContext.createScriptProcessor(4096, 1, 1);
         audioRecorder.onaudioprocess = (buffer) => {
             const audioBuffer = new Float32Array(buffer.inputBuffer.getChannelData(0));
             console.log(audioBuffer);
@@ -76,7 +76,7 @@
         }        
         
         audioSource.connect(audioRecorder);
-        audioRecorder.connect(audioContext.destination);
+        audioRecorder.connect(currentAudioContext.destination);
 
 
         isRecording = true;
@@ -106,8 +106,8 @@
             audioSource.disconnect();
         }
         
-        if (audioContext) {
-            audioContext.close();
+        if (currentAudioContext) {
+            currentAudioContext.close();
         }
         
 
