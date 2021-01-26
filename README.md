@@ -7,7 +7,7 @@ to view this in action: [https://jetfontanilla.github.io/ios-safari-bluetooth-bu
 - open Safari on iOS and go to [this page](https://jetfontanilla.github.io/ios-safari-bluetooth-bug/)
 - notice that the audio properly outputs on the bluetooth device
 - click on **Start Recording** and speak any words or phrases
-- click on stop recordings
+- click on **Stop Recording**
 - download the audio file (PCM/RAW)
 - open the file on any audio editor such as Audacity
 - file format is: 32-bit float, little-endian, 1 channel (Mono)
